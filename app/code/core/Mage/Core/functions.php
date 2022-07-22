@@ -407,22 +407,6 @@ if (!function_exists('hash_equals')) {
     }
 }
 
-if (version_compare(PHP_VERSION, '7.0.0', '<') && !function_exists('random_int')) {
-    /**
-     * Generates pseudo-random integers
-     *
-     * @param int $min
-     * @param int $max
-     * @return int Returns random integer in the range $min to $max, inclusive.
-     */
-    function random_int($min, $max)
-    {
-        mt_srand();
-
-        return mt_rand($min, $max);
-    }
-}
-
 /**
  * polyfill for PHP 8.0 function "str_contains"
  */

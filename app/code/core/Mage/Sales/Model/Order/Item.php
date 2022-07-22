@@ -246,7 +246,10 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('order_item');
+        // pre 1.6 fields names, old => new
+        $this->_oldFieldsMap = [
+            'base_weee_tax_applied_row_amount' => 'base_weee_tax_applied_row_amnt',
+        ];
         return $this;
     }
 
@@ -440,7 +443,9 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     public function setOrder(Mage_Sales_Model_Order $order)
     {
         $this->_order = $order;
-        $this->setOrderId($order->getId());
+        if ($this->getOrderId() != $order->getId()) {
+            $this->setOrderId($order->getId());
+        }
         return $this;
     }
 

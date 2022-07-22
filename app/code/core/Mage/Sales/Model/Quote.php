@@ -262,7 +262,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('sales')->getOldFieldMap('quote');
         return $this;
     }
 
@@ -297,7 +296,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      */
     public function setStore(Mage_Core_Model_Store $store)
     {
-        $this->setStoreId($store->getId());
+        if ($this->getStoreId() != $store->getId()) {
+            $this->setStoreId($store->getId());
+        }
         return $this;
     }
 
@@ -416,6 +417,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         }
         $this->_getResource()->loadByCustomerId($this, $customerId);
         $this->_afterLoad();
+        $this->setOrigData();
+        $this->setDataChanges(false);
         return $this;
     }
 
@@ -429,6 +432,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->loadActive($this, $quoteId);
         $this->_afterLoad();
+        $this->setOrigData();
+        $this->setDataChanges(false);
         return $this;
     }
 
@@ -442,6 +447,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->loadByIdWithoutStore($this, $quoteId);
         $this->_afterLoad();
+        $this->setOrigData();
+        $this->setDataChanges(false);
         return $this;
     }
 

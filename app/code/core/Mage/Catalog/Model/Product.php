@@ -223,9 +223,6 @@
  * @method $this setStoreId(int $store)
  * @method bool hasStoreIds()
  * @method $this setStoreIds(array $storeIds)
- * @method Mage_CatalogInventory_Model_Stock_Item getStockItem()
- * @method bool hasStockItem()
- * @method $this setStockItem(Mage_CatalogInventory_Model_Stock_Item $value)
  * @method array getSwatchPrices()
  *
  * @method int getTaxClassId()
@@ -345,6 +342,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected $_calculatePrice = true;
 
     /**
+     * @var Mage_CatalogInventory_Model_Stock_Item
+     */
+    protected $_stockItem;
+
+    /**
      * Initialize resources
      */
     protected function _construct()
@@ -360,7 +362,6 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     protected function _initOldFieldsMap()
     {
-        $this->_oldFieldsMap = Mage::helper('catalog')->getOldFieldMap();
         return $this;
     }
 
@@ -689,6 +690,32 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         }
 
         return $attributes;
+    }
+
+    /**
+     * @return Mage_CatalogInventory_Model_Stock_Item
+     */
+    public function getStockItem()
+    {
+        return $this->_stockItem;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasStockItem()
+    {
+        return !!$this->_stockItem;
+    }
+
+    /**
+     * @param Varien_Object|Mage_CatalogInventory_Model_Stock_Item $stockItem
+     * @return $this
+     */
+    public function setStockItem($stockItem)
+    {
+        $this->_stockItem = $stockItem;
+        return $this;
     }
 
     /**

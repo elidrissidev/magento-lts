@@ -208,7 +208,7 @@ final class Mage
      */
     public static function getOpenMageVersionInfo()
     {
-        $majorVersion = 19;
+        $majorVersion = 20;
 
         /**
          * This code construct is to make merging for forward porting of changes easier.
@@ -966,6 +966,7 @@ final class Mage
     public static function printException(Throwable $e, $extra = '')
     {
         if (self::$_isDeveloperMode) {
+            @http_response_code(500);
             print '<pre>';
 
             if (!empty($extra)) {
